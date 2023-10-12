@@ -73,6 +73,14 @@ app.use('/departments', require('./src/routes/department.router'))
 app.use('/personnels', require('./src/routes/personnel.router'))
 
 
+// Swagger-UI Middleware:
+// npm i swagger-ui-express
+const swaggerUi = require('swagger-ui-express')
+const swaggerJson = require('./src/swagger.json')
+// Parse/Run swagger.json and publish on any URL:
+app.use('/docs/swagger', swaggerUi.serve, swaggerUi.setup(swaggerJson, { swaggerOptions: { persistAuthorization: true } }))
+
+
 // HomePath:
 app.all('/', (req, res) => {
     res.send({
@@ -82,6 +90,10 @@ app.all('/', (req, res) => {
 })
 
 /* ------------------------------------------------------- */
+
+
+
+
 
 // login - logout
 // app.use(async (req,res,next)=>{
